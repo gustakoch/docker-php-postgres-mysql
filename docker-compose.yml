@@ -1,0 +1,39 @@
+version: "3"
+services:
+    webserver:
+        build: .
+        container_name: apache-php
+        volumes:
+            - ./projects:/var/www/html
+        ports:
+            - "80:80"
+        depends_on:
+            - postgres
+            - mysql
+        restart: always
+
+    postgres:
+        image: postgres:13
+        container_name: postgres13
+        volumes:
+            - ./database/postgresql:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        ports:
+            - "5432:5432"
+        restart: always
+
+    mysql:
+        image: mysql:8
+        container_name: mysql
+        volumes:
+            - ./database/mysql:/var/lib/mysql
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: dev
+            MYSQL_PASSWORD: dev
+        ports:
+            - "3306:3306"
+        restart: always
