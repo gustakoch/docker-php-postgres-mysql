@@ -5,6 +5,7 @@ services:
         container_name: apache-php
         volumes:
             - ./projects:/var/www/html
+            - /etc/timezone:/etc/timezone
         ports:
             - "80:80"
         depends_on:
@@ -17,6 +18,7 @@ services:
         container_name: postgres13
         volumes:
             - ./database/postgresql:/var/lib/postgresql/data
+            - /etc/timezone:/etc/timezone
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: postgres
@@ -29,6 +31,7 @@ services:
         container_name: mysql
         volumes:
             - ./database/mysql:/var/lib/mysql
+            - /etc/timezone:/etc/timezone
         command: --default-authentication-plugin=mysql_native_password
         environment:
             MYSQL_ROOT_PASSWORD: root

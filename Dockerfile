@@ -1,8 +1,9 @@
 FROM php:7.4-apache
 
-RUN apt-get update -y
+ENV TZ 'America/Sao_Paulo'
+RUN echo TZ > /etc/timezone && RUN apt-get update -y
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring
 RUN docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
 
 RUN apt-get install -y libpq-dev \
