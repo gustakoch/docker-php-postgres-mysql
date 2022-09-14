@@ -3,6 +3,8 @@ services:
     webserver:
         build: .
         container_name: apache-php
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         volumes:
             - ./projects:/var/www/html
             - /etc/timezone:/etc/timezone
@@ -35,8 +37,17 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: root
         volumes:
-            - ./database/mysql:/var/lib/mysql57
+            - ./database/mysql:/var/lib/mysql
             - /etc/timezone:/etc/timezone
         networks:
             - default
+        restart: always
+
+    redis:
+        image: redis:7-alpine
+        container_name: redis
+        networks:
+            - default
+        ports:
+            - 6379:6379
         restart: always
