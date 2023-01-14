@@ -1,7 +1,7 @@
 version: "3"
 services:
     webserver:
-        build: .
+        image: gustakoch/php8.0
         container_name: apache-php
         extra_hosts:
             - "host.docker.internal:host-gateway"
